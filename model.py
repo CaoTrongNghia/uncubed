@@ -1,7 +1,6 @@
 import torch
 from torchmdnet.models.model import create_model
 
-# Custom Dictionary that absorbs KeyErrors during TorchMD-Net initialization
 class Config(dict):
     def __getitem__(self, key):
         if key not in self:
@@ -11,7 +10,6 @@ class Config(dict):
             return None
         return super().__getitem__(key)
 
-# Exact architecture parameters from your training notebook
 UNCUBED_CONFIG = Config({
     'model': 'equivariant-transformer',
     'embedding_dimension': 128,
@@ -27,7 +25,7 @@ UNCUBED_CONFIG = Config({
     'cutoff_upper': 5.0,
     'max_num_neighbors': 32,
     'neighbor_embedding': True,
-    'derivative': True,          # Calculates forces via autograd (-dE/dx)
+    'derivative': True,
     'max_z': 100,
     'output_model': 'Scalar',
     'precision': 32,
@@ -39,16 +37,9 @@ UNCUBED_CONFIG = Config({
 })
 
 def load_uncubed_model(weights_path, device="cpu"):
-    """
-    Instantiates the Equivariant Transformer architecture and loads trained weights.
-    """
-    # 1. Rebuild base architecture
     model = create_model(UNCUBED_CONFIG).to(device)
-
-    # 2. Load checkpoint dictionary
     checkpoint = torch.load(weights_path, map_location=device)
 
-    # 3. Extract model weights
     if 'model_state_dict' in checkpoint:
         model.load_state_dict(checkpoint['model_state_dict'])
     else:
