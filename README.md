@@ -4,7 +4,7 @@
 
 It serves as a rapid virtual screening tool to evaluate large molecular libraries, enabling researchers to filter candidate molecules for target energy profiles in seconds before executing full DFT simulations.
 
-*Note: uncubed is designed as an ultra-fast predictive filter to complement, rather than completely replace, first-principles DFT calculations.*
+*Note: uncubed is designed as a fast predictive filter to complement, rather than completely replace, first-principles DFT calculations.*
 
 ### Why choose uncubed?
 
